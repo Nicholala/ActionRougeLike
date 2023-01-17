@@ -10,6 +10,8 @@ UCLASS()
 class ACTIONROUGELIKE_API ANichItemChest : public AActor
 {
 	GENERATED_BODY()
+
+	void Interact_Implementation(APawn* InstigatorPawn);
 	
 public:	
 	// Sets default values for this actor's properties
@@ -19,6 +21,11 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* BaseMesh;
+	
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* LidMesh;
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
