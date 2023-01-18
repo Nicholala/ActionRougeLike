@@ -7,10 +7,12 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "InputActionValue.h"
+#include "NichInteractionComponent.h"
 #include "NichCharacter.generated.h"
 
 class UCameraComponent;
 class USpringArmComponent;
+class UNichInteractionComponent;
 
 UCLASS()
 class ACTIONROUGELIKE_API ANichCharacter : public ACharacter
@@ -43,7 +45,11 @@ public:
 	/** MagicAttack Input Action */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* MagicAttackAction;
-	
+
+	/** Look Input Action */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputAction* InteractAction;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -53,6 +59,9 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComponent;
+
+	UPROPERTY(VisibleAnywhere)
+	UNichInteractionComponent* InteractionComponent;
 	
 public:	
 	// Called every frame
@@ -68,4 +77,6 @@ protected:
 	void Look(const FInputActionValue& Value);
 
 	void MagicAttack();
+
+	void PrimaryInteract();
 };

@@ -3,11 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ActionRougeLike/Interface/NichGameplayInterface.h"
 #include "GameFramework/Actor.h"
 #include "NichItemChest.generated.h"
 
 UCLASS()
-class ACTIONROUGELIKE_API ANichItemChest : public AActor
+class ACTIONROUGELIKE_API ANichItemChest : public AActor, public INichGameplayInterface
 {
 	GENERATED_BODY()
 

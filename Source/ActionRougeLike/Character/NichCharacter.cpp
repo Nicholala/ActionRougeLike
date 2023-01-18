@@ -21,7 +21,8 @@ ANichCharacter::ANichCharacter()
 
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	bUseControllerRotationYaw = false;
-	
+
+	InteractionComponent = CreateDefaultSubobject<UNichInteractionComponent>("InteractionComp");
 }
 
 // Called when the game starts or when spawned
@@ -55,6 +56,7 @@ void ANichCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		EnhancedInputComponent->BindAction(LookAction,ETriggerEvent::Triggered,this,&ANichCharacter::Look);
 
 		EnhancedInputComponent->BindAction(MagicAttackAction,ETriggerEvent::Triggered,this,&ANichCharacter::MagicAttack);
+		EnhancedInputComponent->BindAction(InteractAction,ETriggerEvent::Triggered,this,&ANichCharacter::PrimaryInteract);
 	}
 }
 
@@ -89,8 +91,8 @@ void ANichCharacter::Look(const FInputActionValue& Value)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("LookAxisVector: %s"),*LookAxisVector.ToString())
 		// add yaw and pitch input to controller
-		AddControllerYawInput(LookAxisVector.X * 0.1);
-		AddControllerPitchInput(LookAxisVector.Y * 0.1);
+		AddControllerYawInput(LookAxisVector.X * 0.8f);
+		AddControllerPitchInput(LookAxisVector.Y * 0.2f);
 		
 	}
 }
@@ -102,4 +104,9 @@ void ANichCharacter::MagicAttack()
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	GetWorld()->SpawnActor<AActor>(ProjectileClass,SpawnTM,SpawnParams);
+}
+
+void ANichCharacter::PrimaryInteract()
+{
+	InteractionComponent->PrimaryInteract();
 }
